@@ -1,0 +1,24 @@
+for i=2:length(x)-1
+    A = any(grid(i,:));
+    B = any(grid(i+1,:));
+    if A ~= 0 && B == 0
+        minx2 = i;
+    end
+end
+
+for j=2:length(y)-1
+    C = any(grid(:,j)); D = any(grid(:,j-1)); E = any(grid(:,j+1));
+    if C ~= 0 && D == 0
+        miny2 = j;
+    end
+    
+    if C ~= 0 && E == 0
+        maxy2 = j;
+    end
+end
+
+y_c = ceil(.5*(maxy-miny+1)) % center of y
+
+%sz_grid = size(grid)
+%grid_center = ceil(sz_grid(2)*.5)
+diff = abs(miny2-y_c)

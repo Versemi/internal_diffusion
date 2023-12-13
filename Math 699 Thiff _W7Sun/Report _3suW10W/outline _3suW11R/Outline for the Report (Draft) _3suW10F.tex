@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 8/24 _3suW10F
+
+\documentclass[letterpaper]{article}
+\usepackage[paperwidth=8.5in, paperheight=11in]{geometry}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage[english]{babel}
+\usepackage[autostyle]{csquotes}
+
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+ 
+ 
+ Given the number of particles \texttt{Npart} in the process, the size of the plane consisting of grids can be denoted by \texttt{Ngrid*Ngrid}, where \texttt{Ngrid} is given by \texttt{ceil(1.2*sqrt(Npart))}. Each particle starts to move at the origin $(0, 0)$ ...
+ 
+ For instance, when we simulates an IDLA with 100,000 particles, the standard deviation equals 0.7217.   
+ 
+ For instance, when we simulates an IDLA with 100,000 particles, the standard deviation equals 0.7217.   
+
+\subsection{The Upper Bound of $L_{2}$ Error of the Discretization}
+
+Followed by the equation $(2.1)$, we define the average radius of $\mathcal{D}_R$ as 
+
+\begin{align} 
+\text{Rad} \ \mathcal{D}_R = \frac{1}{N} \sum_{i=0}^{N-1} {\sqrt{m_{i}^2+n_{i}^2}}.
+\end{align}
+
+For $q \geq 1$, we define the $q$-error of the discretization to be 
+
+\begin{align} 
+\text{Err}_{q} \ \mathcal{D}_R=(\frac{1}{N} \sum_{i=0}^{N-1} {||p_{i} - R(\text{cos} \phi_{i}, \text{sin} \phi_{i})||_q^q})^{\frac{1}{q}}, \ \phi = \text{arctan}(m_i,n_i).
+\end{align}
+
+(a derivation from $Err_{q} \ \mathcal{D}_R$ to $L_2$ error)
+
+For $q=2$, we have the $L_2$ error 
+
+\begin{align} 
+\text{Err}_2 \ \mathcal{D}_R=(\frac{1}{N} \sum_{i=0}^{N-1} (m_i^2+n_i^2)-R^2)^{\frac{1}{2}}.
+\end{align}
+
+
+\end{document}

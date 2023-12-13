@@ -1,0 +1,19 @@
+Math Circle Talk (2017-11-13)
+
+1D case:
+
+- Use rr1d to generate rows of arrows as a function of # of bugs.
+- The "waiting times" are Fibonacci.  Use this to predict max extent.
+- Make some arrows and bugs!  Make two "holes".
+- Work out examples with arrows and bugs.
+- List Fibonacci numbers.
+- Write code that "animates".
+- Discuss maximum extent.  How fast does it grow?
+- Show never hops around forever (56, top left).  Could still go to inf though!
+
+2D case:
+
+- Do arrows again?  Much harder.
+- Run command with increasing number of particles.
+- Point out nice structures that emerge.
+- Could modify the rules on the fly?

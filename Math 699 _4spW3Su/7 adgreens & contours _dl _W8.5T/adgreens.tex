@@ -1,0 +1,327 @@
+\documentclass[notitlepage,12pt]{article}
+
+\pdfoutput=1
+
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage[numbers]{natbib}
+\usepackage{hyperref}
+\usepackage[letterpaper]{geometry}
+\usepackage[capitalize]{cleveref}
+
+\graphicspath{{figs/}}
+
+% Commands
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\etal}{\textit{et~al.}}
+\newcommand{\mathnotation}[2]{\newcommand{#1}{\ensuremath{#2}}}
+
+\newcommand{\Order}[1]{\mathrm{O}(#1)}      % Higher-order terms
+\newcommand{\order}[1]{\mathrm{o}(#1)}      % Higher-order terms
+
+\newcommand{\jlt}[1]{{\color{red}{(*** #1)}}}
+%\newcommand{\jlt}[1]{}
+
+%
+% Symbols
+%
+
+\renewcommand{\l}{\left}
+\renewcommand{\r}{\right}
+\mathnotation{\pd}{\partial}
+\mathnotation{\ldef}{\mathrel{\raisebox{.069ex}{:}\!\!=}}% Left define
+\mathnotation{\rdef}{\mathrel{=\!\!\raisebox{.069ex}{:}}}% Right define
+\mathnotation{\dint}{\mathop{}\!\mathrm{d}} % Differential, in an integral
+\mathnotation{\ee}{\mathrm{e}}              % Base of natural log
+\mathnotation{\imi}{\mathrm{i}}             % Imaginary i
+
+
+\begin{document}
+
+\title{Green's function for the \\ advection-diffusion equation}
+
+%\author{Jean-Luc Thiffeault%
+%  \thanks{Department of Mathematics, University of Wisconsin --
+%  Madison, 480 Lincoln Dr., Madison, WI 53706, USA.
+%  E-mail: \href{mailto:jeanluc@math.wisc.edu}{jeanluc@math.wisc.edu}.}}
+
+\date{\today}
+
+\maketitle
+
+\mathnotation{\xc}{x}
+\mathnotation{\yc}{y}
+\mathnotation{\rc}{r}
+\mathnotation{\rv}{\bm{r}}
+\mathnotation{\lapl}{\Delta}
+\mathnotation{\kc}{k}
+\mathnotation{\kv}{\bm{\kc}}
+\mathnotation{\ac}{a}
+
+\section{Green's function from Bessel's equation}
+
+\begin{equation}
+  U\,\pd_\yc \phi = D\,\lapl\phi + \delta(\rv)
+\end{equation}
+Let $\psi(\rv) = \ee^{-U\yc/2D}\phi(\rv)$; then $\psi$ satisfies
+\begin{equation}
+  -D\,\lapl\psi + \frac{U^2}{4D}\,\psi = \delta(\rv).
+  \label{eq:Helm0}
+\end{equation}
+This is a Hemholtz equation.  For convenience we define the inverse length
+scale~$\ac = U/2D$:
+\begin{equation}
+  -\lapl\psi + \ac^2\,\psi = \delta(\rv)/D.
+  \label{eq:Helm}
+\end{equation}
+The solution to this must be dependent on~$\rc$ only, so we try to solve:
+\begin{equation}
+  \frac{1}{\rc}\frac{d}{d\rc}\l(\rc\frac{\pd\psi}{\pd\rc}\r)
+  -
+  \ac^2\psi = 0.
+\end{equation}
+This is a modified Bessel equation; the solution that decays
+as~$\rc\rightarrow\infty$ is
+\begin{equation}
+  \psi(\rc) = c_1\,K_0(\ac\rc).
+\end{equation}
+The Green's function we seek is then of the form
+\begin{equation}
+  \phi(\rv)
+  =
+  \ee^{\ac\yc}\,\psi(\rc)
+  =
+  c_1\,\ee^{\ac\yc}\,K_0(\ac\rc).
+\end{equation}
+To find the constant~$\ac$, we observe that for small~$x$
+\begin{equation}
+  K_0(x) \sim -\log x,
+  \qquad
+  x \rightarrow 0.
+\end{equation}
+Hence, for the Green's function to limit to that for the Laplacian with a
+point source of strength~$-1/D$ as~$\rc\rightarrow0$, we require
+\begin{equation}
+  \phi(\rv)
+  \sim
+  -c_1\,\log\rc
+  \sim
+  -\frac{1}{2\pi D}\log\rc,
+  \qquad
+  \rc \rightarrow 0.
+\end{equation}
+We obtain finally the Green's function
+\begin{equation}
+  \phi(\rv)
+  =
+  \frac{1}{2\pi D}\,\ee^{\ac\yc}\,K_0(\ac\rc),
+  \qquad
+  \ac = \frac{U}{2D}.
+  \label{eq:GF}
+\end{equation}
+A useful asymptotic form for this is
+\begin{equation}
+  \phi(\rv) \sim \frac{\ee^{\ac(\yc - \rc)}}{\sqrt{4\pi D U \rc}},
+  \qquad
+  \rc \rightarrow\infty.
+  \label{eq:GFasym}
+\end{equation}
+In particular, this has very different limits along the~$\xc=0$ axis dependent
+on whether we are upstream ($\yc \rightarrow -\infty$) or downstream
+($\yc \rightarrow \infty$):
+\begin{equation}
+  \phi \sim \frac{1}{\sqrt{4\pi D U \lvert y\rvert}}
+  \begin{cases}
+    1\,, \qquad &y \rightarrow \infty; \\
+    \ee^{-2\ac|\yc|}\,, \qquad &y \rightarrow -\infty.
+  \end{cases}
+\end{equation}
+
+
+\section{The shape of contours}
+
+\mathnotation{\cc}{c}
+\mathnotation{\ycmin}{\yc_{\mathrm{min}}}
+\mathnotation{\ycmax}{\yc_{\mathrm{max}}}
+
+To find the shape of large contours~$\phi(\rv)=\cc/\sqrt{4\pi D U} > 0$ we use
+the asymptotic form \cref{eq:GFasym}:
+\begin{equation}
+  \ee^{\ac(\yc - \rc)} = \cc\,\sqrt{\rc}.
+  \label{eq:contourasym}
+\end{equation}
+The furthest extent of the contour for~$\yc > 0$ is obtained by
+setting~$\rc = \yc = \ycmax$ and then solving
+\begin{equation}
+  1 = \cc\,\sqrt{\ycmax}
+  \quad\Longleftrightarrow\quad
+  \ycmax = 1/\cc^2.
+\end{equation}
+We let furthest extent of the countour for~$\yc<0$ be~$\yc=-\yc_{\text{min}}$.
+Assuming that~$\yc_{\text{min}}$ is large and that \cref{eq:GFasym} is still
+valid, we set~$\rc = -\yc = \ycmin$ and then solve
+%\begin{equation}
+%  \ee^{-\ac\ycmin} = \cc\,\sqrt{\ycmin}.
+%\end{equation}
+\begin{equation}
+  \ee^{-4\ac\ycmin} = \cc^2\,\ycmin.
+\end{equation}
+The solution to this is given in terms of the
+\href{http://mathworld.wolfram.com/LambertW-Function.html}{Lambert
+  $W$-function} as
+\begin{equation}
+  \ycmin = \frac{1}{4\ac}\,W(4\ac/\cc^2).
+\end{equation}
+For small~$\cc$, this has asymptotic expansion
+\begin{equation}
+  \ycmin \sim \frac{1}{4\ac}
+  \l(
+  \log(4\ac/\cc^2) - \log\log(4\ac/\cc^2)
+  \r),
+  \qquad
+  \cc \rightarrow 0.
+\end{equation}
+This is indeed getting slowly larger as~$\cc\rightarrow0$, consistent with
+using the approximation~\cref{eq:GFasym}, but the extent of the contour
+in~$\yc$ is completely dominated by~$\ycmax$.  We can thus safely
+use~$\ycmin=0$ when computing the area.
+
+Now that we know the limits in~$\yc$, to compute the area as a function
+of~$\yc$ we use \cref{eq:contourasym} 
+\begin{equation}
+  \frac{\ee^{\ac(\yc - \sqrt{\xc^2 + \yc^2})}}{(\xc^2 + \yc^2)^{1/4}} = \cc
+  \label{eq:contourasymxy}
+\end{equation}
+and try to solve for~$\xc$.  We rescale $X = \sqrt{\ac}\,\cc\,\xc$,
+$Y = \cc^2\yc$, and then Taylor expand:
+\begin{equation}
+  \frac{\ee^{-X^2/2Y}}{\sqrt{Y}} + \Order{\cc^2} = 1.
+\end{equation}
+%\begin{equation}
+%  \ee^{-X^2/2Y} = \sqrt{Y}\,(1 + \Order{\cc^2}).
+%\end{equation}
+%\begin{equation}
+%  -X^2/2Y = \log\sqrt{Y} + \log(1 + \Order{\cc^2}).
+%\end{equation}
+%\begin{equation}
+%  X^2 = -Y\log Y + \Order{\cc^2}.
+%\end{equation}
+%\begin{equation}
+%  X = \sqrt{-Y\log Y} + \Order{\cc^2}.
+%\end{equation}
+Solving for $X$, we find for the shape of the contour
+\begin{equation}
+  X = \sqrt{Y\log Y^{-1}} + \Order{\cc^2},
+  \qquad
+  0 < Y < 1,
+\end{equation}
+or in terms of the unscaled variables,
+\begin{equation}
+  \xc_{\mathrm{max}}(\yc) = \sqrt{(\yc/\ac)\log(\cc^2\yc)^{-1}}
+  + \Order{\cc},
+  \qquad
+  0 < \yc < \cc^{-2}.
+  \label{eq:xapprox}
+\end{equation}
+Now we can compute the estimated area as
+\begin{equation}
+  A
+  =
+  \frac{2\cc^{-3}}{\sqrt\ac}\int_0^1 X(Y)\dint Y
+  =
+  \frac{2}{3}\,\sqrt{\frac{2\pi}{3\ac}}\,\cc^{-3}.
+  \label{eq:A}
+\end{equation}
+The crucial observation is that~$A \sim \cc^{-3}$.  Hence,
+\begin{equation}
+  \ycmax \sim \cc^{-2} \sim A^{2/3}
+\end{equation}
+as we find in the simulations.  Figure~\ref{fig:contours} compares these
+approximate contours to numerical simulations.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=.65\textwidth]{contours}
+  \end{center}
+  \caption{Numerical contours (solid) compared to the
+    approximation~\eqref{eq:xapprox}.}
+  \label{fig:contours}
+\end{figure}
+
+\jlt{Note that for us the area is twice the number of particles, since we have
+a checkerboard pattern.  Also, I think~$\ac=1$ is the right scaling,
+since~$UT=1$ gridpoint, and $\sqrt{2DT}=1$ gridpoint as well.}
+
+
+
+\clearpage
+
+\section{Using Fourier transform}
+
+\jlt{This is not necessary.}
+
+We take the Fourier transform of \cref{eq:Helm}:
+\begin{equation}
+  \kc^2\,\hat\psi + \ac^2\,\hat\psi = 1/D.
+  \label{eq:Helmk}
+\end{equation}
+Here we define the forward transform
+\begin{equation}
+  \hat\psi(\kv) = \int \psi(\rv)\, \ee^{-\imi\kv\cdot\rv} \dint \rv
+\end{equation}
+and the inverse transform
+\begin{equation}
+  \psi(\rv) = \frac{1}{2\pi}
+  \int \hat\psi(\kv)\, \ee^{\imi\kv\cdot\rv} \dint \kv.
+\end{equation}
+Solving \cref{eq:Helmk} for~$\hat\psi$ and inverting, we have
+\begin{equation}
+  \psi(\rv)
+  =
+  \frac{1}{2\pi D}
+  \int
+  \frac{\ee^{\imi\kv\cdot\rv}}{\kc^2 + \ac^2} \dint \kv.
+\end{equation}
+We can transform the~$\kv$ integral to polar coordinates
+with~$\kv = \kc\,(\cos\varphi,\sin\varphi)$
+and~$\rv = \rc\,(\cos\theta,\sin\theta)$:
+\begin{equation}
+  \psi(\rv)
+  =
+  \frac{1}{2\pi D}
+  \int_0^{2\pi}
+  \int_0^\infty
+  \frac{\ee^{\imi\kc\rc\cos(\varphi-\theta)}}{\kc^2 + \ac^2}
+  \,\kc\dint \kc\dint \varphi.
+\end{equation}
+Because of periodicity, we can translate the~$\varphi$ integral by~$\theta$
+and obtain the $\theta$-independent form
+\begin{equation}
+  \psi(\rc)
+  =
+  \frac{1}{2\pi D}
+  \int_0^{2\pi}
+  \int_0^\infty
+  \frac{\ee^{\imi\kc\rc\cos\varphi}}{\kc^2 + \ac^2}
+  \,\kc\dint \kc\dint \varphi.
+\end{equation}
+Mathematica can carry this one out directly to give
+\begin{equation}
+  \psi(\rc)
+  =
+  \frac{1}{D}
+  \,
+  K_0(\ac\rc).
+\end{equation}
+
+
+
+%\bibliographystyle{jlt}
+%\bibliography{journals_abbrev,articles}
+
+\end{document}
